@@ -6,6 +6,7 @@ app = FastAPI()
 
 ZAPI_INSTANCE_ID = os.getenv("ZAPI_INSTANCE_ID")
 ZAPI_TOKEN = os.getenv("ZAPI_TOKEN")
+ZAPI_CLIENT_TOKEN = os.getenv("ZAPI_CLIENT_TOKEN")
 
 ZAPI_URL = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-text"
 
@@ -16,12 +17,17 @@ async def webhook(request: Request):
 
     print("Mensagem recebida de:", phone)
 
+    header = {
+        "Content-Type": "application/json",
+        "Client-Token": ZAPI_CLIENT_TOKEN
+    }
+
     payload = {
         "phone": phone,
         "message": "✨ Seja bem-vindo(a). O universo já está ouvindo você..."
     }
 
-    response = requests.post(ZAPI_URL, json=payload)
+    response = requests.post(ZAPI_URL, json=payload, headers=headers)
     print("Status envio:", response.status_code)
     print("Responta Z-API:", response.text)
     
