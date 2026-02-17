@@ -21,5 +21,8 @@ async def webhook(request: Request):
         "message": "✨ Seja bem-vindo(a). O universo já está ouvindo você..."
     }
 
-    requests.post(ZAPI_URL, json=payload)
+    response = requests.post(ZAPI_URL, json=payload)
+    print("Status envio:", response.status_code)
+    print("Responta Z-API:", response.text)
+    
     return {"status": "ok"}
