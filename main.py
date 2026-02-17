@@ -17,7 +17,7 @@ async def webhook(request: Request):
 
     print("Mensagem recebida de:", phone)
 
-    header = {
+    headers = {
         "Content-Type": "application/json",
         "Client-Token": ZAPI_CLIENT_TOKEN
     }
