@@ -13,6 +13,11 @@ ZAPI_URL = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN
 @app.post("/webhook")
 async def webhook(request: Request):
     data = await request.json()
+    print("Payload recebido: ", data)
+    if data.get("fromMe"):
+        print("Mensagem ignorada (enviada pelo próprio BOT)")
+        return {"status": "ignored"}
+    
     phone = data.get("phone")
 
     print("Mensagem recebida de:", phone)
@@ -21,7 +26,6 @@ async def webhook(request: Request):
         "Content-Type": "application/json",
         "Client-Token": ZAPI_CLIENT_TOKEN
     }
-
     payload = {
         "phone": phone,
         "message": "✨ Seja bem-vindo(a). O universo já está ouvindo você..."
