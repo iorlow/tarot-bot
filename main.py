@@ -34,7 +34,7 @@ async def webhook(request: Request):
             "Client-Token": ZAPI_CLIENT_TOKEN
                 }
         
-        if tipo = "button":
+        if tipo == "button":
             if botao_id == "1":
                 payload={"phone": phone,"message":"Você escolheu a opção 1"}
             elif botao_id == "2":
