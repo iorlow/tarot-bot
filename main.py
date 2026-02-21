@@ -24,9 +24,10 @@ async def webhook(request: Request):
     else:
         phone = data.get("phone")
         texto = data.get("body","").lower()
-        tipo = data.get("type")
+        tipo = "button" if "buttonsResponseMessage" in data else "notbutton"
+        botao_data = data.get("buttonsResponseMessage")
+        botao_id = buttons_data.get("buttonId")
         print("Tipo: ", tipo)
-        botao_id = data.get("selectedId") if tipo == "button" else "vazio"  
         print("Mensagem recebida de:", phone)
                                     
         # Definição dos headers, pode ser reutilizado em todas as mensagens
