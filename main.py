@@ -25,7 +25,7 @@ async def webhook(request: Request):
         phone = data.get("phone")
         texto = data.get("body","").lower()
         tipo = data.get("type")
-        print(tipo)
+        print("Tipo: ", tipo)
         botao_id = data.get("selectedId") if tipo == "button" else "vazio"  
         print("Mensagem recebida de:", phone)
                                     
