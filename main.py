@@ -2,7 +2,7 @@ import os
 import requests
 from fastapi import FastAPI, Request
 from sqlalchemy import create_engine, text
-
+from models import Base
     
 app = FastAPI()
 
@@ -19,6 +19,7 @@ ZAPI_URL_BUTTON_ACTIONS = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/to
 
 #Engine de conexão com o DB
 engine = create_engine(DATABASE_URL)
+Base.metadata.create_all(engine)
 
 #TESTE
 with engine.connect() as connection:
