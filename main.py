@@ -22,7 +22,7 @@ engine = create_engine(DATABASE_URL)
 
 #TESTE
 with engine.connect() as connection:
-    result = connection.execute("SELECT 1")
+    result = connection.execute(text("SELECT 1"))
     print(result.fetchone())
 
 @app.post("/webhook")
