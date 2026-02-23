@@ -1,8 +1,11 @@
 import os
 import requests
+
 from fastapi import FastAPI, Request
-from sqlalchemy import create_engine, text
+
+from database import engine
 from models import Base
+from services import obter_ou_criar_usuario
     
 app = FastAPI()
 
@@ -18,13 +21,7 @@ ZAPI_URL_BUTTON = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAP
 ZAPI_URL_BUTTON_ACTIONS = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-button-actions" #botões de ação
 
 #Engine de conexão com o DB
-engine = create_engine(DATABASE_URL)
 Base.metadata.create_all(engine)
-
-#TESTE
-with engine.connect() as connection:
-    result = connection.execute(text("SELECT 1"))
-    print(result.fetchone())
 
 @app.post("/webhook")
 async def webhook(request: Request):
