@@ -1,7 +1,7 @@
 import os
 import requests
 from fastapi import FastAPI, Request
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
     
 app = FastAPI()
