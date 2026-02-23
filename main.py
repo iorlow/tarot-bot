@@ -1,17 +1,29 @@
 import os
 import requests
 from fastapi import FastAPI, Request
+from sqlalchemy import create_engine
 
+    
 app = FastAPI()
 
+# Variáveis de ambiente
 ZAPI_INSTANCE_ID = os.getenv("ZAPI_INSTANCE_ID")
 ZAPI_TOKEN = os.getenv("ZAPI_TOKEN")
 ZAPI_CLIENT_TOKEN = os.getenv("ZAPI_CLIENT_TOKEN")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Métodos de envio de mensagens. Podem ser reunilizados para as demais mensagens
 ZAPI_URL_TEXT = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-text" #mensagem de texto
 ZAPI_URL_BUTTON = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-button-list" #lista de botões
 ZAPI_URL_BUTTON_ACTIONS = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-button-actions" #botões de ação
+
+#Engine de conexão com o DB
+engine = create_engine(DATABASE_URL)
+
+#TESTE
+with engine.connect() as connection:
+    result = connection.execute("SELECT 1")
+    print(result.fetchone())
 
 @app.post("/webhook")
 async def webhook(request: Request):
