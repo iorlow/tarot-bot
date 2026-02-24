@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request
 from database import engine
 from models import Base
 from services import obter_ou_criar_usuario, atualizar_etapa
+import requests
 import variaveis
 
 app = FastAPI()
@@ -30,18 +31,18 @@ async def webhook(request: Request):
         if usuario.etapa_fluxo == "inicio":
             
             payload={"phone": telefone,"message":"Mensagem de início"}
-            response = requests.post(f"{BASE_URL}/send-text", json=payload, headers=headers)
+            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
             nova_etapa = "aguardando_descricao"
             
         elif usuario.etapa_fluxo == "aguardando_descricao":
             
             payload={"phone": telefone,"message":"mensagem de aguardando descricao"}
-            response = requests.post(f"{BASE_URL}/send-text", json=payload, headers=headers)
+            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
             nova_etapa = "finalizado"
             
         else:
             payload={"phone": telefone,"message":"Atendimento finalizado"}
-            response = requests.post(f"{BASE_URL}/send-text", json=payload, headers=headers)
+            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
             nova_etapa = "inicio"
     
             
