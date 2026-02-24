@@ -25,6 +25,7 @@ async def webhook(request: Request):
 
     # Exemplo simples de fluxo
     if usuario.etapa_fluxo == "inicio":
+        
         nova_etapa = "aguardando_descricao"
     elif usuario.etapa_fluxo == "aguardando_descricao":
         nova_etapa = "finalizado"
@@ -33,7 +34,7 @@ async def webhook(request: Request):
 
         
     usuario = atualizar_etapa(usuario.id, nova_etapa)
-    print(usuario.telefone)
+    print("Telefone do usuário: ", usuario.telefone)
 
     return {
         "status": "ok",
