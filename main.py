@@ -12,11 +12,11 @@ Base.metadata.create_all(engine)
 
 @app.post("/webhook")
 async def webhook(request: Request):
-    if data.get("fromMe"):
+    body = await request.json()
+    if body.get("fromMe"):
         print("Mensagem ignorada (enviada pelo próprio BOT)")
         return {"status": "ignored"}
     else:
-        body = await request.json()
         # Ajuste conforme payload real da Z-API
         telefone = body.get("phone")
         mensagem = body.get("message")
@@ -29,14 +29,19 @@ async def webhook(request: Request):
         # Exemplo simples de fluxo
         if usuario.etapa_fluxo == "inicio":
             
+            payload={"phone": telefone,"message":"Mensagem de início"}
+            response = requests.post(f"{BASE_URL}/send-text", json=payload, headers=headers)
             nova_etapa = "aguardando_descricao"
             
         elif usuario.etapa_fluxo == "aguardando_descricao":
             
+            payload={"phone": telefone,"message":"mensagem de aguardando descricao"}
+            response = requests.post(f"{BASE_URL}/send-text", json=payload, headers=headers)
             nova_etapa = "finalizado"
             
         else:
-            
+            payload={"phone": telefone,"message":"Atendimento finalizado"}
+            response = requests.post(f"{BASE_URL}/send-text", json=payload, headers=headers)
             nova_etapa = "inicio"
     
             
