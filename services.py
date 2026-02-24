@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+
 from models import Usuario
 from database import engine
 
@@ -27,3 +28,15 @@ def obter_ou_criar_usuario(telefone: str, nome: str = None):
         except IntegrityError:
             session.rollback()
             return session.query(Usuario).filter_by(telefone=telefone).first()
+
+
+def atualizar_etapa(usuario_id: int, nova_etapa: str):
+    with Session(engine) as session:
+        usuario = session.get(Usuario, usuario_id)
+
+        if usuario:
+            usuario.etapa_fluxo = nova_etapa
+            session.commit()
+            session.refresh(usuario)
+
+        return usuario
