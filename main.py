@@ -33,6 +33,7 @@ async def webhook(request: Request):
 
         
     usuario = atualizar_etapa(usuario.id, nova_etapa)
+    print(usuario)
 
     return {
         "status": "ok",
