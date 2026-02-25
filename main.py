@@ -28,12 +28,20 @@ async def webhook(request: Request):
         usuario = obter_ou_criar_usuario(telefone)
     
         # Exemplo simples de fluxo
-        if usuario.etapa_fluxo == "inicio":
+
+        if usuario.etapa_fluxo == "primeira_consulta":
             
-            payload={"phone": telefone,"message":"Mensagem de início"}
+            payload={"phone": telefone,"message":"Oi, é sua primeira vez aqui. Antes de começar precisamos alinhar algumas coisas."}
+            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
+            nova_etapa = "inicio"
+        
+        elif usuario.etapa_fluxo == "inicio":
+            
+            payload={"phone": telefone,"message":"O que vai querer hoje?"}
             response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
             nova_etapa = "aguardando_descricao"
-            
+
+        
         elif usuario.etapa_fluxo == "aguardando_descricao":
             
             payload={"phone": telefone,"message":"mensagem de aguardando descricao"}
