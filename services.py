@@ -15,7 +15,7 @@ def obter_ou_criar_usuario(telefone: str, nome: str = None):
         novo_usuario = Usuario(
             telefone=telefone,
             nome=nome,
-            etapa_fluxo="inicio"
+            etapa_fluxo="primeira_consulta"
         )
 
         session.add(novo_usuario)
