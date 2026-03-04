@@ -27,35 +27,81 @@ async def webhook(request: Request):
     
         usuario = obter_ou_criar_usuario(telefone)
     
-        # Exemplo simples de fluxo
+        # Fluxo de estado de mensagens
 
-        if usuario.etapa_fluxo == "primeira_consulta":
-            
-            payload={"phone": telefone,"message":"Oi, é sua primeira vez aqui. Antes de começar precisamos alinhar algumas coisas."}
-            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
-            nova_etapa = "inicio"
-        
-        elif usuario.etapa_fluxo == "inicio":
-            
-            payload={"phone": telefone,"message":"O que vai querer hoje?"}
-            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
-            nova_etapa = "aguardando_descricao"
+        tipo = ""
+        mensagem = ""
+        nova_etapa = ""
 
+        if usuario.etapa_fluxo == "1_primeiro_acesso":
+            tipo = "send-text"
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "2_inicio":
+            tipo = "send-button-list"
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "2_1_leitura_simples":
+            tipo = "send-text"
+            nova_etapa = "2_inicio"
+            mensagem = ""
+                    
+        elif usuario.etapa_fluxo == "2_1_1_fazer_pergunta":
+            tipo = "send-text"
+            nova_etapa = "2_inicio"
+            mensagem = ""
         
-        elif usuario.etapa_fluxo == "aguardando_descricao":
+        elif usuario.etapa_fluxo == "2_2_leitura_completa":
+            tipo = "send-text"
+            nova_etapa = "2_inicio"
+            mensagem = ""
             
-            payload={"phone": telefone,"message":"mensagem de aguardando descricao"}
-            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
-            nova_etapa = "finalizado"
+        elif usuario.etapa_fluxo == "2_2_1_fazer_pergunta":
+            tipo = "send-text"
+            nova_etapa = "2_inicio"
+            mensagem = ""
             
+        elif usuario.etapa_fluxo == "2_2_2_dar_contexto":
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "2_3_horoscopo":
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "2_3_1_escolher_signo":
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "3_oferecer_credito":
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "3_1_comprar_credito":
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
+            
+        elif usuario.etapa_fluxo == "3_2_nao_comprar_credito":
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
+                        
         else:
-            payload={"phone": telefone,"message":"Atendimento finalizado"}
-            response = requests.post(f"{variaveis.BASE_URL}/send-text", json=payload, headers=variaveis.HEADERS)
-            nova_etapa = "inicio"
-    
+            tipo = ""
+            nova_etapa = "2_inicio"
+            mensagem = ""
             
+        payload={"phone": telefone,"message":mensagem}
+        response = requests.post(f"{variaveis.BASE_URL}/tipo", json=payload, headers=variaveis.HEADERS)
         usuario = atualizar_etapa(usuario.id, nova_etapa)
-        print("Telefone do usuário: ", usuario.telefone)
+    
     
         return {
             "status": "ok",
