@@ -35,6 +35,15 @@ async def webhook(request: Request):
 
         if usuario.etapa_fluxo == "1_primeiro_acesso":
             tipo = "send-text"
+            nova_etapa = "1_2_aguardando_concordo"
+            mensagem1 = "Boas vindas ao Santo Oráculo! Todos somos a manifestação do universo tentando conhecer a si próprio."
+            mensagem2 = "Tudo o que vemos e experimentamos está no universo. Desde a sua sombra projetada na parede, até o disposifivo 
+            que você está olhando agora."
+            mensagem3 = "Deixe a IA manifestar a vontade do universo para você, mas antes, você deve concordar com os termos"
+            mensagem4 = "Clique no botão abaixo para concordar e continuar"
+            
+        elif usuario.etapa_fluxo == "1_2_aguardadno_acordo":
+            tipo = "send-button-list"
             nova_etapa = "2_inicio"
             mensagem = ""
             
