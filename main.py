@@ -26,6 +26,11 @@ async def webhook(request: Request):
             return {"erro": "Telefone não informado"}
     
         usuario = obter_ou_criar_usuario(telefone)
+
+        
+                payload={"phone": telefone,"message":mensagem}
+        response = requests.post(f"{variaveis.BASE_URL}/tipo", json=payload, headers=variaveis.HEADERS)
+        usuario = atualizar_etapa(usuario.id, nova_etapa)
     
         # Fluxo de estado de mensagens
 
@@ -107,9 +112,7 @@ async def webhook(request: Request):
             nova_etapa = "2_inicio"
             mensagem = ""
             
-        payload={"phone": telefone,"message":mensagem}
-        response = requests.post(f"{variaveis.BASE_URL}/tipo", json=payload, headers=variaveis.HEADERS)
-        usuario = atualizar_etapa(usuario.id, nova_etapa)
+
     
     
         return {
