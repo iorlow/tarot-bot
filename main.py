@@ -119,8 +119,8 @@ async def webhook(request: Request):
             }
 
 #lixo, remover daqui depois
-def envia_mensagem(mensagem, tipo, telefone, url, headers):
-    if tipo = "send-text"
-    payload={"phone": telefone,"message":mensagem}
-    response = requests.post(f"{url}/tipo", json = payload, headers = headers)
-    usuario = atualizar_etapa(usuario.id, nova_etapa)
+#def envia_mensagem(mensagem, tipo, telefone, url, headers):
+#    if tipo = "send-text"
+#    payload={"phone": telefone,"message":mensagem}
+#    response = requests.post(f"{url}/tipo", json = payload, headers = headers)
+#    usuario = atualizar_etapa(usuario.id, nova_etapa)
