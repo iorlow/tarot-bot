@@ -4,6 +4,8 @@ from models import Base
 from services import obter_ou_criar_usuario, atualizar_etapa
 import requests
 import variaveis
+import time
+
 app = FastAPI()
 headers = variaveis.HEADERS
 url = variaveis.BASE_URL
@@ -86,7 +88,7 @@ async def webhook(request: Request):
                           "message": "*Que notícia maravilhosa 2...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
-                
+                time.sleep(1)
                 payload ={"phone": telefone,
                           "message": "🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
                           "buttons": [{"id": "simples","text": "✨ Leitura simples"},
