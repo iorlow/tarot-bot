@@ -85,6 +85,8 @@ async def webhook(request: Request):
             
             elif usuario.etapa_fluxo == "2_inicio":
                 payload ={"phone": telefone,
+                          "delayMessage": 3,
+                          "delayTyping": 5,
                           "message": "*Que notícia maravilhosa!!!!...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
@@ -94,7 +96,7 @@ async def webhook(request: Request):
                 payload2 ={"phone": telefone,
                           "message": "🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
                           "delayMessage": 3,
-                          "delayTyping": 5
+                          "delayTyping": 5,
                           "buttons": [{"id": "simples","text": "✨ Leitura simples"},
                                       {"id": "completa","text": "✨ Leitura completa"},
                                       {"id": "horoscopo","text": "✨ Horoscopo de hoje"}]
