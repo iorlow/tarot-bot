@@ -55,16 +55,17 @@ async def webhook(request: Request):
                           "message": "*Que notícia maravilhosa 1...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)          
-                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_inicio":
                 payload ={"phone": telefone,
                           "message": "*Que notícia maravilhosa 2...*"
                          }
-                response = requests.post(f"{url}/send-text", json = payload, headers = headers)          
-                usuario = atualizar_etapa(usuario.id, nova_etapa)
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
+                
                                
                 
             elif usuario.etapa_fluxo == "2_1_leitura_simples":
