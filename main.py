@@ -88,9 +88,13 @@ async def webhook(request: Request):
                           "message": "*Que notícia maravilhosa!!!!...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
-                time.sleep(2)
+                
+                time.sleep(3)
+                
                 payload2 ={"phone": telefone,
                           "message": "🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
+                          "delayMessage": 3,
+                          "delayTyping": 5
                           "buttons": [{"id": "simples","text": "✨ Leitura simples"},
                                       {"id": "completa","text": "✨ Leitura completa"},
                                       {"id": "horoscopo","text": "✨ Horoscopo de hoje"}]
