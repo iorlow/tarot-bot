@@ -68,36 +68,40 @@ async def webhook(request: Request):
                                
                 
             elif usuario.etapa_fluxo == "2_1_leitura_simples":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_1_1_fazer_pergunta":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_2_leitura_completa":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_2_1_fazer_pergunta":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_2_2_dar_contexto":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_3_horoscopo":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_3_1_escolher_signo":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "3_oferecer_credito":
+                nova_etapa = "2_inicio"
 
             elif usuario.etapa_fluxo == "3_1_comprar_credito":
+                nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "3_2_nao_comprar_credito":
+                nova_etapa = "2_inicio"
                 
             else:
+                nova_etapa = "2_inicio"
                 
             return {
                 "status": "ok",
                 "usuario_id": usuario.id,
                 "etapa_atual": usuario.etapa_fluxo
-                }
-
-#lixo, remover daqui depois
-#def envia_mensagem(mensagem, tipo, telefone, url, headers):
-#    if tipo = "send-text"
-#    payload={"phone": telefone,"message":mensagem}
-#    response = requests.post(f"{url}/tipo", json = payload, headers = headers)
-#    
+                }  
