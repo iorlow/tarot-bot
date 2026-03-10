@@ -52,17 +52,50 @@ async def webhook(request: Request):
             
             elif usuario.etapa_fluxo == "1_2_aguardando_acordo" and mensagem == "✨ Aceitar e continuar":
                 payload ={"phone": telefone,
-                          "message": "*Que notícia maravilhosa 1...*"
+                          "message": "*Que notícia maravilhosa você aceitou os termos...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)          
-                nova_etapa = "2_inicio"
-                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
+                payload ={"phone": telefone,
+                          "message": "🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
+                          "buttons": [{"id": "simples","text": "✨ Leitura simples"},
+                                      {"id": "completa","text": "✨ Leitura completa"},
+                                      {"id": "horoscopo","text": "✨ Horoscopo de hoje"}]
+                         }
+                response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
+                
+                #nova_etapa = "2_inicio"
+                #usuario = atualizar_etapa(usuario.id, nova_etapa)
+                
+            elif usuario.etapa_fluxo == "1_2_aguardando_acordo" and mensagem != "✨ Aceitar e continuar":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
+
+                payload ={"phone": telefone,
+                          "message": "🔮 *Antes de continuar...*\n\nPara abrir as portas do Oráculo, precisamos da sua concordância.\n\nAo prosseguir, você confirma que leu e aceita nossos termos de uso.\n\nClique abaixo para continuar.",
+                          "buttons": [{"id": "aceitar_termos","text": "✨ Aceitar e continuar"
+                                      }]
+                         }
+                response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
+
+            
             elif usuario.etapa_fluxo == "2_inicio":
                 payload ={"phone": telefone,
                           "message": "*Que notícia maravilhosa 2...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
+                
+                payload ={"phone": telefone,
+                          "message": "🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
+                          "buttons": [{"id": "simples","text": "✨ Leitura simples"},
+                                      {"id": "completa","text": "✨ Leitura completa"},
+                                      {"id": "horoscopo","text": "✨ Horoscopo de hoje"}]
+                         }
+                response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
+                
+                
                 nova_etapa = "2_inicio"
                 usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
