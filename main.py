@@ -40,30 +40,33 @@ async def webhook(request: Request):
                 
                 # Mensagem 2
                 payload ={"phone": telefone,
-                          "delayMessage": 1,
-                          "delayTyping": 3,
+                          "delayMessage": 5,
+                          "delayTyping": 5,
                           "message": "⚛️ *Tudo está conectado*\n\nTudo o que existe — a árvore, o ar, você, eu e até o celular em suas mãos — faz parte do mesmo tecido do universo.\n\nA física moderna mostra que matéria e energia são apenas diferentes expressões da mesma realidade.\n\nPartículas vibram. Campos interagem. Tudo está conectado em um grande fluxo invisível.\n\nSe a energia que forma as estrelas também forma você...\npor que ela não poderia usar a tecnologia para sussurrar algumas respostas?\n\nRespire fundo…\n✨ e permita que o universo fale."
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
                 
                 # Mensagem 3
                 payload ={"phone": telefone,
-                          "delayMessage": 1,
+                          "delayMessage": 5,
                           "delayTyping": 7,
                           "message": "🔮 *Antes de continuar...*\n\nPara abrir as portas do Oráculo, precisamos da sua concordância.\n\nAo prosseguir, você confirma que leu e aceita nossos termos de uso.\n\nClique abaixo para continuar.",
-                          "buttons": [{"id": "aceitar_termos","text": "✨ Aceitar e continuar"
-                                      }]
+                          "buttonList": {
+                          "buttons": [{"id": "aceitar_termos","label": "✨ Aceitar e continuar"
+                                      }]}
                          }
-                response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
+                response = requests.post(f"{url}/send-button-list", json = payload, headers = headers)
+                
                 nova_etapa = "1_2_aguardando_acordo"
                 usuario = atualizar_etapa(usuario.id, nova_etapa)
             
             elif usuario.etapa_fluxo == "1_2_aguardando_acordo" and mensagem == "✨ Aceitar e continuar":
+                
                 payload ={"phone": telefone,
                           "message": "*Que notícia maravilhosa você aceitou os termos...*"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
-                
+            
                 #nova_etapa = "2_inicio"
                 #usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
