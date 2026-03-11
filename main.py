@@ -67,8 +67,8 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
             
-                #nova_etapa = "2_inicio"
-                #usuario = atualizar_etapa(usuario.id, nova_etapa)
+                nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "1_2_aguardando_acordo" and mensagem != "✨ Aceitar e continuar":
                 payload ={"phone": telefone,
@@ -82,6 +82,11 @@ async def webhook(request: Request):
                                       }]
                          }
                 response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
+                
+                nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
+
+            
 
             
             elif usuario.etapa_fluxo == "2_inicio_1":
@@ -120,6 +125,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_2_leitura_completa":
                 payload ={"phone": telefone,
@@ -127,6 +133,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_2_1_fazer_pergunta":
                 payload ={"phone": telefone,
@@ -134,6 +141,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_2_2_dar_contexto":
                 payload ={"phone": telefone,
@@ -141,6 +149,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_3_horoscopo":
                 payload ={"phone": telefone,
@@ -148,6 +157,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_3_1_escolher_signo":
                 payload ={"phone": telefone,
@@ -155,6 +165,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "3_oferecer_credito":
                 payload ={"phone": telefone,
@@ -162,6 +173,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
 
             elif usuario.etapa_fluxo == "3_1_comprar_credito":
                 payload ={"phone": telefone,
@@ -169,6 +181,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "3_2_nao_comprar_credito":
                 payload ={"phone": telefone,
@@ -176,6 +189,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             else:
                 payload ={"phone": telefone,
@@ -183,6 +197,7 @@ async def webhook(request: Request):
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             return {
                 "status": "ok",
