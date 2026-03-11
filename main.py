@@ -88,10 +88,11 @@ async def webhook(request: Request):
                           "message": "*O universo te trouxe aqui novamente 😍🌀* /n/n🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
                           "delayMessage": 3,
                           "delayTyping": 7,
+                          "buttonList": {
                           "buttons": [{"id": "simples","text": "✨ Leitura simples"},
                                       {"id": "completa","text": "✨ Leitura completa"},
                                       {"id": "horoscopo","text": "✨ Horoscopo de hoje"}]
-                         }
+                         }}
                 response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
                 
                 nova_etapa = "2_1_leitura_simples"
