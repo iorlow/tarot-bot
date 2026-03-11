@@ -102,6 +102,7 @@ async def webhook(request: Request):
                 
             elif usuario.etapa_fluxo == "2_1_leitura_simples":
                 nova_etapa = "2_inicio"
+                usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_1_1_fazer_pergunta":
                 nova_etapa = "2_inicio"
