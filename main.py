@@ -93,7 +93,7 @@ async def webhook(request: Request):
                                         }
                            
                          }
-                response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
+                response = requests.post(f"{url}/send-button-list", json = payload, headers = headers)
                 
                 nova_etapa = "2_1_leitura_simples"
                 usuario = atualizar_etapa(usuario.id, nova_etapa)
