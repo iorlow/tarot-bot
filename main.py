@@ -85,14 +85,22 @@ async def webhook(request: Request):
             
             elif usuario.etapa_fluxo == "2_inicio":
                 payload ={"phone": telefone,
-                          "message": "*O universo te trouxe aqui novamente 😍🌀* /n/n🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
+                          "message": "*Mensagem de inicio*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)
+                
+                payload ={"phone": telefone,
+                          "message": "O universo te trouxe aqui novamente 😍🌀 /n/n🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
                           "delayMessage": 3,
                           "delayTyping": 7,
                           "buttonList": {
-                          "buttons": [{"id": "simples","text": "✨ Leitura simples"},
-                                      {"id": "completa","text": "✨ Leitura completa"},
-                                      {"id": "horoscopo","text": "✨ Horoscopo de hoje"}]
-                         }}
+                              "buttons": [{"id": "id1","label": "🧭 Leitura simples"},
+                                          {"id": "id2","label": "🌞🌛 Leitura completa"},
+                                          {"id": "id3","label": "🔮 Horóscopo"}
+                                         ]
+                                        }
+                           
+                         }
                 response = requests.post(f"{url}/send-buttons", json = payload, headers = headers)
                 
                 nova_etapa = "2_1_leitura_simples"
@@ -101,37 +109,81 @@ async def webhook(request: Request):
                                
                 
             elif usuario.etapa_fluxo == "2_1_leitura_simples":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 usuario = atualizar_etapa(usuario.id, nova_etapa)
                 
             elif usuario.etapa_fluxo == "2_1_1_fazer_pergunta":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_2_leitura_completa":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_2_1_fazer_pergunta":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_2_2_dar_contexto":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_3_horoscopo":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "2_3_1_escolher_signo":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "3_oferecer_credito":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
 
             elif usuario.etapa_fluxo == "3_1_comprar_credito":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             elif usuario.etapa_fluxo == "3_2_nao_comprar_credito":
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             else:
+                payload ={"phone": telefone,
+                          "message": "*Você ainda não aceitou nossos termos*"
+                         }
+                response = requests.post(f"{url}/send-text", json = payload, headers = headers)  
                 nova_etapa = "2_inicio"
                 
             return {
