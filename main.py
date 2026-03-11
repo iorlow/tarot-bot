@@ -29,7 +29,7 @@ async def webhook(request: Request):
         else:
             usuario = obter_ou_criar_usuario(telefone)
             
-            if usuario.etapa_fluxo == "2_inicio": #"1_primeiro_acesso":
+            if usuario.etapa_fluxo == "1_primeiro_acesso":
                 # Mensagem 1           
                 payload ={"phone": telefone,
                           "delayMessage": 1,
@@ -50,7 +50,7 @@ async def webhook(request: Request):
                 payload ={"phone": telefone,
                           "delayMessage": 5,
                           "delayTyping": 7,
-                          "message": "🔮 *Antes de continuar...*\n\nPara abrir as portas do Oráculo, precisamos da sua concordância.\n\nAo prosseguir, você confirma que leu e aceita nossos termos de uso.\n\nClique abaixo para continuar.",
+                          "message": "🔮 *Antes de continuar...*\n\nPara abrir as portas do Oráculo, precisamos da sua concordância.\n\nAo prosseguir, você confirma que leu e aceita nossos termos de uso (www.google.com.br).\n\nClique abaixo para continuar.",
                           "buttonList": {
                           "buttons": [{"id": "aceitar_termos","label": "✨ Aceitar e continuar"
                                       }]}
@@ -63,7 +63,7 @@ async def webhook(request: Request):
             elif usuario.etapa_fluxo == "1_2_aguardando_acordo" and mensagem == "✨ Aceitar e continuar":
                 
                 payload ={"phone": telefone,
-                          "message": "*Que notícia maravilhosa você aceitou os termos...*"
+                          "message": "Você aceitou"
                          }
                 response = requests.post(f"{url}/send-text", json = payload, headers = headers)
             
@@ -89,7 +89,7 @@ async def webhook(request: Request):
             
 
             
-            elif usuario.etapa_fluxo == "2_inicio_1":
+            elif usuario.etapa_fluxo == "2_inicio":
                 #menu de opções de leituras
                 payload ={"phone": telefone,
                           "message": "O universo te trouxe aqui novamente 😍🌀! \n\n🔮 Agora você deve escolher o que quer fazer primeiro.\n\nLembre-se, você pode fazer uma pergunta grátis por dia\n\nEscolha uma das opções abaixo:",
