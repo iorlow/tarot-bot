@@ -53,6 +53,8 @@ async def webhook(request: Request):
                           "message": "🔮 *Antes de continuar...*\n\nPara abrir as portas do Oráculo, precisamos da sua concordância.\n\nAo prosseguir, você confirma que leu e aceita nossos termos de uso (www.google.com.br).\n\nClique abaixo para continuar.",
                           "buttonList": {
                           "buttons": [{"id": "aceitar_termos","label": "✨ Aceitar e continuar"
+                                      },
+                                     {"id": "nao_aceitar_termos","label": "✨ não Aceitar e continuar"
                                       }]}
                          }
                 response = requests.post(f"{url}/send-button-list", json = payload, headers = headers)
